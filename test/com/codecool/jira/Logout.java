@@ -1,6 +1,8 @@
 package com.codecool.jira;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
@@ -10,8 +12,7 @@ public class Logout {
     WebDriver driver;
     UtilJira util;
 
-    @BeforeAll
-    @Test
+    @BeforeEach
     public void initDriver() {
 
         this.util = UtilJira.getInstanceOfUtilJira();
@@ -23,6 +24,12 @@ public class Logout {
     public void logout() {
         util.logIn("user4", "CCPass123");
         util.logOut();
-        assertEquals("Logout-Jira", driver.getTitle());
+        assertEquals("Confirm logout - Jira", driver.getTitle());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        util.logOut();
+        driver.close();
     }
 }
