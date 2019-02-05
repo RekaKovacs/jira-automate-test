@@ -1,5 +1,6 @@
 package com.codecool.jira;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -26,8 +27,13 @@ public class Login {
         driver.findElement(By.id("user-options")).click();
         driver.findElement(By.id("login-form-username")).sendKeys(username);
         driver.findElement(By.id("login-form-password")).sendKeys(pw);
-        driver.findElement(By.id("login-form")).submit();
+        driver.findElement(By.id("login-form-submit")).click();
     }
 
+    @AfterEach
+    public void tearDown() {
+        util.logOut();
+        driver.close();
+    }
 
 }
