@@ -1,14 +1,14 @@
 package com.codecool.jira;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Login {
+public class Logout {
     WebDriver driver;
     UtilJira util;
 
@@ -21,13 +21,10 @@ public class Login {
     }
 
     @Test
-    public void loginBySidebar() {
-        String username = "user3";
-        String pw = "CCPass123";
-        driver.findElement(By.id("user-options")).click();
-        driver.findElement(By.id("login-form-username")).sendKeys(username);
-        driver.findElement(By.id("login-form-password")).sendKeys(pw);
-        driver.findElement(By.id("login-form-submit")).click();
+    public void logout() {
+        util.logIn("user4", "CCPass123");
+        util.logOut();
+        assertEquals("Confirm logout - Jira", driver.getTitle());
     }
 
     @AfterEach
@@ -35,5 +32,4 @@ public class Login {
         util.logOut();
         driver.close();
     }
-
 }

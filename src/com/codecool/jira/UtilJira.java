@@ -14,18 +14,18 @@ import java.util.function.Function;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class UtilJiraTest {
-    private static final UtilJiraTest INSTANCE = new UtilJiraTest();
+public class UtilJira {
+    private static final UtilJira INSTANCE = new UtilJira();
     WebDriver driver;
 
-    private UtilJiraTest() {
+    private UtilJira() {
     }
 
-    public static UtilJiraTest getUtilJiraTest() {
+    public static UtilJira getInstanceOfUtilJira() {
         return INSTANCE;
     }
 
-    public WebDriver iniTest() {
+    public WebDriver initDriver() {
         System.setProperty("webdriver.gecko.driver", "geckodriver" );
         driver = new FirefoxDriver();
         return driver;
@@ -35,7 +35,7 @@ public class UtilJiraTest {
         driver.findElement(By.id("user-options")).click();
         driver.findElement(By.id("login-form-username")).sendKeys(username);
         driver.findElement(By.id("login-form-password")).sendKeys(pw);
-        driver.findElement(By.id("login-form")).submit();
+        driver.findElement(By.id("login-form-submit")).click();
     }
 
     public void logOut() {
