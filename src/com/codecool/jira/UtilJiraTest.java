@@ -43,9 +43,9 @@ public class UtilJiraTest {
 
                 .withTimeout(30, SECONDS)
 
-                .pollingEvery(5, SECONDS)
+                .pollingEvery(5, SECONDS);
 
-                .ignoring(NoSuchElementException.class);
+//                .ignoring(NoSuchElementException.class);
 
         WebElement profilePicture = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("user-options")));
         profilePicture.click();
@@ -54,7 +54,17 @@ public class UtilJiraTest {
     }
 
     public String getDataUserValue() {
-        return driver.findElement(By.id("header-details-user-fullname")).getAttribute("data-username");
+        Wait wait = new FluentWait(driver)
+
+                .withTimeout(30, SECONDS)
+
+                .pollingEvery(5, SECONDS);
+
+//                .ignoring(NoSuchElementException.class);
+
+        WebElement messageError = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("header-details-user-fullname")));
+
+        return messageError.getAttribute("data-username");
     }
 
 }
