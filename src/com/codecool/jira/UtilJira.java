@@ -1,23 +1,25 @@
 package com.codecool.jira;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class UtilJiraTest {
-    private static final UtilJiraTest INSTANCE = new UtilJiraTest();
+public class UtilJira {
+    private static final UtilJira INSTANCE = new UtilJira();
     WebDriver driver;
 
-    private UtilJiraTest() {
+    private UtilJira() {
     }
 
-    public static UtilJiraTest getUtilJiraTest() {
+    public static UtilJira getInstanceOfUtilJira() {
         return INSTANCE;
     }
 
-    public WebDriver iniTest() {
+    public WebDriver initDriver() {
         System.setProperty("webdriver.gecko.driver", "geckodriver" );
         driver = new FirefoxDriver();
         return driver;
     }
+
 
 }
