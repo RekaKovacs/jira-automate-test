@@ -35,7 +35,7 @@ public class UtilJiraTest {
         driver.findElement(By.id("user-options")).click();
         driver.findElement(By.id("login-form-username")).sendKeys(username);
         driver.findElement(By.id("login-form-password")).sendKeys(pw);
-        driver.findElement(By.id("login-form")).submit();
+        driver.findElement(By.id("login-form-submit")).click();
     }
 
     public void logOut() {
