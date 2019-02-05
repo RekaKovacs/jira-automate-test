@@ -39,6 +39,15 @@ public class UtilJira {
     }
 
     public void logOut() {
+        Wait wait = waitForPageToLoad();
+
+        WebElement profilePicture = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("user-options")));
+        profilePicture.click();
+        WebElement logOut = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("log_out")));
+        logOut.click();
+    }
+
+    public Wait waitForPageToLoad() {
         Wait wait = new FluentWait(driver)
 
                 .withTimeout(30, SECONDS)
@@ -46,11 +55,7 @@ public class UtilJira {
                 .pollingEvery(5, SECONDS)
 
                 .ignoring(NoSuchElementException.class);
-
-        WebElement profilePicture = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("user-options")));
-        profilePicture.click();
-        WebElement logOut = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("log_out")));
-        logOut.click();
+        return wait;
     }
 
 }
