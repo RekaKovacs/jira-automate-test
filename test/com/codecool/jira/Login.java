@@ -3,6 +3,7 @@ package com.codecool.jira;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Login {
     WebDriver driver;
@@ -24,6 +25,8 @@ public class Login {
         driver.findElement(By.id("login-form-username")).sendKeys(username);
         driver.findElement(By.id("login-form-password")).sendKeys(pw);
         driver.findElement(By.id("login-form-submit")).click();
+        String result = util.getDataUserValue();
+        assertEquals(username, result);
     }
 
     @Test
@@ -31,7 +34,11 @@ public class Login {
         driver.findElement(By.id("login-form-username")).sendKeys(username);
         driver.findElement(By.id("login-form-password")).sendKeys(pw);
         driver.findElement(By.id("login")).click();
+        String result = util.getDataUserValue();
+        assertEquals(username, result);
     }
+
+
 
     @AfterEach
     public void tearDown() {

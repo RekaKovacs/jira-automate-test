@@ -53,4 +53,8 @@ public class UtilJiraTest {
         logOut.click();
     }
 
+    public String getDataUserValue() {
+        return driver.findElement(By.id("header-details-user-fullname")).getAttribute("data-username");
+    }
+
 }
