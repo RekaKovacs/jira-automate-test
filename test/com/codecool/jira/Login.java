@@ -10,13 +10,13 @@ import java.util.List;
 
 public class Login {
     WebDriver driver;
-    UtilJiraTest util;
+    UtilJira util;
 
     @BeforeEach
     public void initDriver() {
 
-        this.util = UtilJiraTest.getUtilJiraTest();
-        this.driver = util.iniTest();
+        this.util = UtilJira.getInstanceOfUtilJira();
+        this.driver = util.initDriver();
         driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
     }
 
