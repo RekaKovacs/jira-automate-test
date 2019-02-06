@@ -54,13 +54,26 @@ public class BrowseProjects {
             allProjects.click();
             WebElement projectDetailedPage = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.partialLinkText(projectName)));
             projectDetailedPage.click();
-            if (driver.findElement(By.partialLinkText(projectName)).isDisplayed()) {
+            WebElement projectNameElementOnDetailedPage = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.partialLinkText(projectName)));
+            String projectNameOnDetailedPage = projectNameElementOnDetailedPage.getText();
+            if (projectNameOnDetailedPage.contains(projectName)) {
                 workingProjectsDetailedPages++;
             }
         }
         assertEquals(projectNames.size(), workingProjectsDetailedPages);
 
     }
+
+
+
+//    TODO: check filter for project types
+//    TODO: check filter for project categories
+//    TODO: check search bar on all projects page
+//    TODO: view a project's reports
+//    TODO: view a project's Glass Doku
+//    TODO: view a project's releases
+
+
 
     @AfterEach
     public void tearDown() {
