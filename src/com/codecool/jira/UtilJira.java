@@ -39,12 +39,32 @@ public class UtilJira {
     }
 
     public void logOut() {
-        Wait wait = waitForPageToLoad();
+        Wait wait = new FluentWait(driver)
+
+                .withTimeout(30, SECONDS)
+
+                .pollingEvery(5, SECONDS);
+
+//                .ignoring(NoSuchElementException.class);
 
         WebElement profilePicture = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("user-options")));
         profilePicture.click();
         WebElement logOut = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("log_out")));
         logOut.click();
+    }
+
+    public String getDataUserValue() {
+        Wait wait = new FluentWait(driver)
+
+                .withTimeout(30, SECONDS)
+
+                .pollingEvery(5, SECONDS);
+
+//                .ignoring(NoSuchElementException.class);
+
+        WebElement messageError = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("header-details-user-fullname")));
+
+        return messageError.getAttribute("data-username");
     }
 
     public Wait waitForPageToLoad() {
