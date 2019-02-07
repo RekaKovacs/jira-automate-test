@@ -1,22 +1,19 @@
 package com.codecool.jira;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.function.Function;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BrowseProjects {
@@ -64,12 +61,61 @@ public class BrowseProjects {
 
     }
 
+//    TODO: check filter for project types - NEEDS FINISHING!!!
+    @Test
+    public void testFilterOfProjectTypes() {
+        Wait wait = util.waitForPageToLoad();
+        driver.findElement(By.linkText("Projects")).click();
+        driver.findElement(By.linkText("View All Projects")).click();
+        WebElement projectTypesSidebar = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("browse-projects-sidebar")));
+        WebElement types = projectTypesSidebar.findElement(By.className("project-type-nav")).findElement(By.className("project-types-filters"));
+//        driver.findElement(By.xpath("//*[@id=\"all-project-type\"]/a")).click();
+//        WebElement listedProjects0 = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
+//        driver.findElement(By.xpath("//*[@id=\"software-project-type\"]/a")).click();
+//        WebElement listedProjects1 = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
+//        driver.findElement(By.xpath("//*[@id=\"business-project-type\"]/a")).click();
+//        WebElement listedProjects2 = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
 
 
-//    TODO: check filter for project types
+        List <WebElement> elementsOfProjectTypes = (List<WebElement>) wait.until((Function<WebDriver, List>) driver -> types.findElements(By.tagName("href")));
+//        List<WebElement> elementsOfProjectTypes = projectTypes.findElements(By.tagName("li"));
+        System.out.println(elementsOfProjectTypes);
+        int numOfWorkingFilters = 0;
+        for (WebElement element : elementsOfProjectTypes) {
+            element.click();
+            WebElement listedProjects = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
+            if (listedProjects.getText().contains(element.getText())) {
+                numOfWorkingFilters++;
+                System.out.println(numOfWorkingFilters);
+            }
+
+        }
+    }
+
+    @Test
+    public void viewProjectReports() {
+        List<String> projectNames = new ArrayList<>(Arrays.asList("COALA", "JETI", "TOUCAN"));
+        int workingProjectsViewReports = 0;
+        Wait wait = util.waitForPageToLoad();
+        for (String projectName : projectNames) {
+            driver.get("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
+            WebElement projectDetailedPage = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.partialLinkText(projectName)));
+            projectDetailedPage.click();
+
+            WebElement ele = driver.findElement(By.cssSelector("span[title='Reports']"));
+            JavascriptExecutor executor = (JavascriptExecutor)driver;
+            executor.executeScript("arguments[0].click();", ele);
+
+            WebElement pageH1Title = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.className("subnavigator-title")));
+            if (pageH1Title.getText().equals("All reports")) {
+                workingProjectsViewReports++;
+            }
+        }
+        assertEquals(projectNames.size(), workingProjectsViewReports);
+
+    }
 //    TODO: check filter for project categories
 //    TODO: check search bar on all projects page
-//    TODO: view a project's reports
 //    TODO: view a project's Glass Doku
 //    TODO: view a project's releases
 

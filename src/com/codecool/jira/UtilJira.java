@@ -52,7 +52,7 @@ public class UtilJira {
 
                 .withTimeout(30, SECONDS)
 
-                .pollingEvery(5, SECONDS)
+                .pollingEvery(2, SECONDS)
 
                 .ignoring(NoSuchElementException.class);
         return wait;
