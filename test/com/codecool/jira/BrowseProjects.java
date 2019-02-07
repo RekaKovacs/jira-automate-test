@@ -62,13 +62,37 @@ public class BrowseProjects {
     }
 
 //    TODO: check filter for project types - NEEDS FINISHING!!!
+    /*
     @Test
     public void testFilterOfProjectTypes() {
         Wait wait = util.waitForPageToLoad();
-        driver.findElement(By.linkText("Projects")).click();
-        driver.findElement(By.linkText("View All Projects")).click();
-        WebElement projectTypesSidebar = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("browse-projects-sidebar")));
-        WebElement types = projectTypesSidebar.findElement(By.className("project-type-nav")).findElement(By.className("project-types-filters"));
+        driver.get("https://jira.codecool.codecanvas.hu/secure/BrowseProjects.jspa?selectedCategory=all&selectedProjectType=all");
+        WebElement ele = driver.findElement(By.xpath("//*[@id=\"browse-projects-sidebar\"]/nav/div/div[1]"));
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", ele);
+        WebElement vmi = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"browse-projects-sidebar\"]/nav/div/div[1]")));
+
+//        WebElement vmi = driver.findElement(By.cssSelector("div[class='project-types-filters']"));
+        System.out.println(vmi);
+
+//        WebElement vmi = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"browse-projects-sidebar\"]/nav/div/div[1]/ul")));
+//        System.out.println(vmi);
+        //        WebElement ele = driver.findElement(By.className("project-types-filters"));
+//        WebElement industries = ele.findElement(By.cssSelector("div.columns.three.alpha > ul"));
+        List<WebElement> types = vmi.findElement(By.tagName("ul")).findElements(By.tagName("li"));
+        int numOfWorkingFilters = 0;
+        for (WebElement type : types) {
+            type.click();
+            WebElement h2PageTitleElement = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
+            String h2PageTitle = h2PageTitleElement.getText().toLowerCase();
+            if (h2PageTitle.contains(type.getText().toLowerCase())) {
+                numOfWorkingFilters++;
+                System.out.println(numOfWorkingFilters);
+            }
+        }
+
+//        WebElement projectTypesSidebar = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.id("browse-projects-sidebar")));
+//        WebElement types = projectTypesSidebar.findElement(By.className("project-type-nav")).findElement(By.className("project-types-filters"));
 //        driver.findElement(By.xpath("//*[@id=\"all-project-type\"]/a")).click();
 //        WebElement listedProjects0 = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
 //        driver.findElement(By.xpath("//*[@id=\"software-project-type\"]/a")).click();
@@ -76,21 +100,21 @@ public class BrowseProjects {
 //        driver.findElement(By.xpath("//*[@id=\"business-project-type\"]/a")).click();
 //        WebElement listedProjects2 = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
 
-
-        List <WebElement> elementsOfProjectTypes = (List<WebElement>) wait.until((Function<WebDriver, List>) driver -> types.findElements(By.tagName("href")));
-//        List<WebElement> elementsOfProjectTypes = projectTypes.findElements(By.tagName("li"));
-        System.out.println(elementsOfProjectTypes);
-        int numOfWorkingFilters = 0;
-        for (WebElement element : elementsOfProjectTypes) {
-            element.click();
-            WebElement listedProjects = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
-            if (listedProjects.getText().contains(element.getText())) {
-                numOfWorkingFilters++;
-                System.out.println(numOfWorkingFilters);
-            }
-
+//
+//        List <WebElement> elementsOfProjectTypes = (List<WebElement>) wait.until((Function<WebDriver, List>) driver -> types.findElements(By.tagName("href")));
+////        List<WebElement> elementsOfProjectTypes = projectTypes.findElements(By.tagName("li"));
+//        System.out.println(elementsOfProjectTypes);
+//        int numOfWorkingFilters = 0;
+//        for (WebElement element : elementsOfProjectTypes) {
+//            element.click();
+//            WebElement listedProjects = (WebElement) wait.until((Function<WebDriver, WebElement>) driver -> driver.findElement(By.xpath("//*[@id=\"filter-projects\"]/div/h2")));
+//            if (listedProjects.getText().contains(element.getText())) {
+//                numOfWorkingFilters++;
+//                System.out.println(numOfWorkingFilters);
+//            }
         }
-    }
+
+    */
 
     @Test
     public void viewProjectReports() {
