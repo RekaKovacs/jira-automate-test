@@ -67,4 +67,15 @@ public class UtilJira {
         return messageError.getAttribute("data-username");
     }
 
+    public Wait waitForPageToLoad() {
+        Wait wait = new FluentWait(driver)
+
+                .withTimeout(30, SECONDS)
+
+                .pollingEvery(2, SECONDS)
+
+                .ignoring(NoSuchElementException.class);
+        return wait;
+    }
+
 }
