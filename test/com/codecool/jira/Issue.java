@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class Issue {
     WebDriver driver;
     UtilJira util;
-    String username = "user4";
+    String username = "user6";
     String pw = "CCPass123";
     List<String> listProjects;
     List<String> listIssueType;
@@ -58,21 +58,22 @@ public class Issue {
             wait.until(ExpectedConditions.elementToBeClickable(projectSelectInForm)).sendKeys(Keys.BACK_SPACE);
             projectSelectInForm.sendKeys(project);
             wait.until(ExpectedConditions.textToBePresentInElement(projectSelectInForm, projectSelectInForm.getText()));
-            projectSelectInForm.sendKeys(Keys.TAB);
+            projectSelectInForm.sendKeys(Keys.ENTER);
 
             WebElement issueTypeSelectInForm = wait.until(ExpectedConditions.elementToBeClickable(By.id("issuetype-field")));
             issueTypeSelectInForm.click();
             wait.until(ExpectedConditions.elementToBeClickable(issueTypeSelectInForm)).sendKeys(Keys.BACK_SPACE);
 
-            issueTypeSelectInForm.sendKeys("TASK");
+            issueTypeSelectInForm.sendKeys("task");
             wait.until(ExpectedConditions.textToBePresentInElement(issueTypeSelectInForm, issueTypeSelectInForm.getText()));
-            issueTypeSelectInForm.sendKeys(Keys.TAB);
+            issueTypeSelectInForm.sendKeys(Keys.ENTER);
 
-            WebElement summary = wait.until(ExpectedConditions.elementToBeClickable(By.id("summary")));
-            summary.click();
-            wait.until(ExpectedConditions.elementToBeClickable(projectSelectInForm)).sendKeys(Keys.BACK_SPACE);
+            WebElement summary = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("summary")));
+//            summary.click();
+//            wait.until(ExpectedConditions.elementToBeClickable(projectSelectInForm)).sendKeys(Keys.BACK_SPACE);
             summary.sendKeys(counter + " KRK");
             wait.until(ExpectedConditions.textToBePresentInElement(summary, summary.getText()));
+
             wait.until(ExpectedConditions.elementToBeClickable(By.id("create-issue-submit"))).click();
 
         }
