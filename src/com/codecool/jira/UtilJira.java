@@ -93,4 +93,15 @@ public class UtilJira {
         return webElement;
     }
 
+    public Wait waitForPageToLoad() {
+        Wait wait = new FluentWait(driver)
+
+                .withTimeout(30, SECONDS)
+
+                .pollingEvery(2, SECONDS)
+
+                .ignoring(NoSuchElementException.class);
+        return wait;
+    }
+
 }
