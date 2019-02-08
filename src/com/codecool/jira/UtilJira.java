@@ -1,5 +1,6 @@
 package com.codecool.jira;
 
+import org.junit.platform.commons.util.PackageUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -10,13 +11,19 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class UtilJira {
     private static final UtilJira INSTANCE = new UtilJira();
+    private static  List<String> LISTPROJECTS;
+    private static List<String> ISSUETYPE;
+
     WebDriver driver;
     WebDriverWait wDWait;
 
@@ -25,6 +32,22 @@ public class UtilJira {
 
     public static UtilJira getInstanceOfUtilJira() {
         return INSTANCE;
+    }
+
+    public static List<String> getListProjects() {
+        LISTPROJECTS = new ArrayList<>();
+        LISTPROJECTS.add("TOUCAN");
+        LISTPROJECTS.add("JETI");
+        LISTPROJECTS.add("COALA" );
+        return LISTPROJECTS;
+    }
+
+    public static List<String> getListIssueType() {
+        ISSUETYPE = new ArrayList<>();
+        ISSUETYPE.add("BUG");
+        ISSUETYPE.add("STORY");
+        ISSUETYPE.add("TASK");
+        return ISSUETYPE;
     }
 
     public WebDriver initDriver() {
